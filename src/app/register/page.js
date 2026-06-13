@@ -12,15 +12,34 @@ export default function RegisterPage(){
     });
 
 
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        alert(`Account Created Successfully for ${formData.name} as ${formData.role}!`);
-        // console.log(formData); 
-        window.location.reload()
+        try {
+            const res = await fetch("/api/register",{
+                method:'POST',
+                headers:{
+                    "Content-Type":"application/json",
+                },
+                body: JSON.stringify(formData),
+            })
+            const data = await res.json();
+
+            if(res.ok){
+                alert('Account Created Successfully in MongoDb!');
+                setFormData({name:'',email:'',password:'',role:'cahier'});
+            }else
+            {
+                alert(data.message)
+            }
+        } catch (error) {
+            console.log("Registration Error:",error);
+            alert('Failed to register Staff.')
+        }
     };
 
     return(
@@ -57,7 +76,7 @@ export default function RegisterPage(){
                     <button type="submit" className="w-full cursor-pointer bg-blue-600 text-white p-2 rounded hover:bg-blue-700 font-bold transition">Register Staff</button>
                     <p className="text-center text-sm text-gray-600 mt-2">
                         Already have an account?{" "}
-                        <Link href="../login/login.js" className="text-blue-600 font-bold hover:underline">
+                        <Link href="/login" className="text-blue-600 font-bold hover:underline">
                             Go to Login
                         </Link>
                     </p>
