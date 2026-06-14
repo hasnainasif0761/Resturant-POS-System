@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import { connectDb } from "./utils/db";
+import Credentials from "next-auth/providers/credentials"; // 👈 YEH LINE MISSING HAI, ISKO ADD KAREIN!
 import mongoose from "mongoose";
 import { UserModal } from "./models/User";
 import bcrypt from 'bcryptjs'
@@ -59,7 +60,7 @@ export const {handlers, auth, signIn, signOut} = NextAuth({
     pages:{
         signIn:"/login",
     },
-    secret: process.env.AUTH_SECRET
+    secret: process.env.AUTH_SECRET || "fallback_secret_key_just_in_case",
 })
 
 

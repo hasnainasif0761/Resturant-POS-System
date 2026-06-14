@@ -20,7 +20,7 @@ export async function POST(req) {
         }
 
         if(role === 'admin'){
-            const adminExist = UserModal.findOne({role:'admin'});
+            const adminExist = await UserModal.findOne({role:'admin'});
             if(adminExist){
                 return NextResponse.json(
                     {message:"Admin is Already Register! Please Select Another Role"},
