@@ -7,6 +7,8 @@ import { signOut } from "next-auth/react";
 import MainDashboard from "./admin-tabs/MainDashboard";
 import CategoryTab from "./admin-tabs/CategoryTab";
 import ProductTab from "./admin-tabs/ProductTab";
+import Tables from './admin-tabs/TableManagementTab'
+import Staff from './admin-tabs/StaffManagementTab'
 import { LayoutDashboard, FolderOpen, ShoppingCart, LogOut, Boxes, PackageSearch, Armchair, Users, Laptop, ChefHat, ClipboardPlus, Settings  } from "lucide-react";
 
 export default function AdminDashboard({ user }) {
@@ -113,8 +115,10 @@ export default function AdminDashboard({ user }) {
                     {activeTab === "dashboard" && <MainDashboard />}
                     {activeTab === "category" && <CategoryTab />}
                     {activeTab === "product" && <ProductTab />}
+                    {activeTab === 'tables' && <Tables/>}
+                    {activeTab === 'staff' && <Staff/>}
 
-                    {!["dashboard", "category", "product"].includes(activeTab) && (
+                    {!["dashboard", "category", "product", "tables"].includes(activeTab) && (
                         <div className="bg-white p-8 rounded-xl text-center text-gray-500 shadow-sm border border-gray-200">
                             Is tab ka component <span className="font-bold text-blue-600">"{activeTab}Tab.jsx"</span> abhi design karna baqi hai.
                         </div>
