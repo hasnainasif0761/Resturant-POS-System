@@ -1,19 +1,25 @@
 import { connectDb } from "@/utils/db";
-import { CategoryModal } from "@/models/Category";
+import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 
-// 📥 GET: Saari categories frontend ko bhejo
+// Category Schema fallback ke sath taaki compile overwrite error na aaye
+const categorySchema = new mongoose.Schema({
+    name: { type: String, required: true }
+}, { timestamps: true });
+
+const CategoryModal = mongoose.models.Category || mongoose.model("Category", categorySchema);
+
 export async function GET() {
     try {
         await connectDb();
         const categories = await CategoryModal.find().sort({ createdAt: -1 });
         return NextResponse.json(categories, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ error: "Fetch failed" }, { status: 500 });
+        // Kisi bhi crash par HTML ke bajaye JSON error bhejein
+        return NextResponse.json({ error: error.message || "Categories fetch failed" }, { status: 500 });
     }
 }
 
-// 📤 POST: Nayi category add karo
 export async function POST(req) {
     try {
         await connectDb();
@@ -23,6 +29,6 @@ export async function POST(req) {
         const newCategory = await CategoryModal.create({ name });
         return NextResponse.json(newCategory, { status: 201 });
     } catch (error) {
-        return NextResponse.json({ error: "Already exists or server error" }, { status: 500 });
+        return NextResponse.json({ error: error.message || "Create failed" }, { status: 500 });
     }
 }
