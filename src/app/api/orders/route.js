@@ -1,5 +1,6 @@
-import connectDb from "@/utils/db";
+
 import Order from "@/models/Order";
+import { connectDb } from "@/utils/db";
 import { NextResponse } from "next/server";
 
 // 1. Get Orders (Kitchen & Bill List)
