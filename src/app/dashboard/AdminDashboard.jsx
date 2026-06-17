@@ -11,10 +11,16 @@ import Tables from './admin-tabs/TableManagementTab'
 import Staff from './admin-tabs/StaffManagementTab'
 import PosCount from './page'
 import { LayoutDashboard, FolderOpen, ShoppingCart, LogOut, Boxes, PackageSearch, Armchair, Users, Laptop, ChefHat, ClipboardPlus, Settings  } from "lucide-react";
+import { useRouter } from "next/navigation";
+import KitchenTab from "./admin-tabs/KitchenTab";
+import BillListTab from "./admin-tabs/BillListTab";
 
 export default function AdminDashboard({ user }) {
     const [activeTab, setActiveTab] = useState("dashboard");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const router = useRouter()
+
 
     const tabs = [
         { id: "dashboard", name: "Dashboard",icon:<LayoutDashboard/> },
@@ -29,6 +35,12 @@ export default function AdminDashboard({ user }) {
     ];
 
     const handleTabClick = (tabId) => {
+        
+        if(tabId === 'pos'){
+            router.push('/dashboard/pos');
+            return
+        }
+    
         setActiveTab(tabId);
         setIsSidebarOpen(false);
     };
@@ -119,8 +131,10 @@ export default function AdminDashboard({ user }) {
                     {activeTab === 'tables' && <Tables/>}
                     {activeTab === 'staff' && <Staff/>}
                     {activeTab === 'pos' && <PosCount/>}
+                    {activeTab === 'kitchen' && <KitchenTab/>}
+                    {activeTab === 'report' && <BillListTab/>}
 
-                    {!["dashboard", "category", "product", "tables", "staff", "pos"].includes(activeTab) && (
+                    {!["dashboard", "category", "product", "tables", "staff", "pos", "kitchen", "report"].includes(activeTab) && (
                         <div className="bg-white p-8 rounded-xl text-center text-gray-500 shadow-sm border border-gray-200">
                             Is tab ka component <span className="font-bold text-blue-600">"{activeTab}Tab.jsx"</span> abhi design karna baqi hai.
                         </div>
