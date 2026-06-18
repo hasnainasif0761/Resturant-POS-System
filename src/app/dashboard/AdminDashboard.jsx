@@ -92,9 +92,9 @@ export default function AdminDashboard({ user }) {
                 <div className="p-4 border-t border-gray-800">
                     <button
                         onClick={() => signOut({ callbackUrl: "/login" })}
-                        className="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-bold text-sm transition cursor-pointer text-center"
+                        className="w-full flex justify-center gap-2  items-center bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-bold text-sm transition cursor-pointer text-center"
                     >
-                       <LogOut className="w-[12px]"/> EXIT
+                       <LogOut className="w-[20px] mb-1"/> EXIT
                     </button>
                 </div>
             </aside>

@@ -16,7 +16,10 @@ const OrderSchema = new mongoose.Schema({
         qty: { type: Number, required: true }
     }],
     totalAmount: { type: Number, required: true },
-    status: { type: String, enum: ["pending", "completed", "paid"], default: "pending" },
+    // 🍳 Kitchen Status Tracker (Sirf Cooking track karega)
+    status: { type: String, enum: ["pending", "completed"], default: "pending" },
+    // 💳 Billing Status Tracker (Jo humne naya logic lagaya hai)
+    paymentStatus: { type: String, enum: ["unpaid", "paid"], default: "unpaid" },
     createdAt: { type: Date, default: Date.now }
 });
 

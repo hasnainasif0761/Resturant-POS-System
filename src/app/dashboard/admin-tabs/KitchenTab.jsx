@@ -56,7 +56,7 @@ export default function KitchenTab() {
                             <div>
                                 <span className="text-[10px] bg-orange-100 text-orange-600 px-2 py-0.5 rounded font-black uppercase">{order.orderType}</span>
                                 <h3 className="font-black text-xs text-slate-700 mt-1 uppercase">
-                                    {order.orderType === "Dine In" ? `Table ${order.table?.number || "N/A"}` : order.customer?.name}
+                                    {order.orderType === "Dine In" ? `Table ${order.table?.name || "N/A"}` : order.customer?.name}
                                 </h3>
                             </div>
                             <span className="text-[10px] font-bold text-gray-400">{new Date(order.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
